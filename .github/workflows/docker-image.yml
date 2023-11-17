@@ -32,8 +32,8 @@ jobs:
       name: Get secrets from secret manager
       with:
         secrets: |-
-          PROJECT_ID:projects/7604953608/secrets/project-id
-          REGION:projects/7604953608/secrets/region
+          project_id:projects/7604953608/secrets/project-id
+          region:projects/7604953608/secrets/region
           repository:projects/7604953608/secrets/repository
           img:projects/7604953608/secrets/image
 
@@ -41,6 +41,6 @@ jobs:
 
     - name: Build and push the Docker image
       run: |
-        docker build -t REGION-docker.pkg.dev/PROJECT_ID/repository/img:v1.0 .
-        docker push REGION-docker.pkg.dev/PROJECT_ID/repository/img:v1.0
+        docker build -t region-docker.pkg.dev/project_id/repository/img:latest .
+        docker push region-docker.pkg.dev/project_id/repository/img:latest
       
