@@ -12,7 +12,34 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    - uses: 'actions/checkout@v4'
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      name: authenticate to Google Cloud
+      with:
+        workload_identity_provider: 'projects/7604953608/locations/global/workloadIdentityPools/danta-vishram-wif/providers/dv-provider'
+
+    - id: 'secrets'
+      uses: 'google-github-actions/get-secretmanager-secrets@v1'
+      name: Get secrets from secret manager
+      with:
+        secrets: |-
+          PROJECT_ID:projects/7604953608/secrets/project-id
+          REGION:projects/7604953608/secrets/region
+          REPOSITORY:projects/7604953608/secrets/repository
+          IMAGE:projects/7604953608/secrets/image
+
+
+
+    - name: Build and push the Docker image
+      run: |
+        docker build -t REGION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:v1.0 .
+        docker push REGION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:v1.0
+      
