@@ -37,7 +37,9 @@ jobs:
           repository:projects/7604953608/secrets/repository
           img:projects/7604953608/secrets/image
 
-
+    - name: Print variables
+      run: echo "REGION=$region, PROJECT_ID=$project_id, REPOSITORY=$repository, IMAGE=$img"
+        
 
     - name: Build and push the Docker image
       run: |
