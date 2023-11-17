@@ -38,11 +38,11 @@ jobs:
           img:projects/7604953608/secrets/image
 
     - name: Print variables
-      run: echo "REGION=$region, PROJECT_ID=$project_id, REPOSITORY=$repository, IMAGE=$img"
+      run: echo "REGION=${{ steps.secrets.outputs.region }}, PROJECT_ID=${{ steps.secrets.outputs.project_id }}, REPOSITORY=${{ steps.secrets.outputs.repository }}, IMAGE=${{ steps.secrets.outputs.img }}"
         
 
     - name: Build and push the Docker image
       run: |
-        docker build -t region-docker.pkg.dev/project_id/repository/img:latest .
-        docker push region-docker.pkg.dev/project_id/repository/img:latest
+        docker build -t ${{ steps.secrets.outputs.region }}-docker.pkg.dev/${{ steps.secrets.outputs.project_id }}/${{ steps.secrets.outputs.repository }}/${{ steps.secrets.outputs.img }}:latest .
+        docker push ${{ steps.secrets.outputs.region }}-docker.pkg.dev/${{ steps.secrets.outputs.project_id }}/${{ steps.secrets.outputs.repository }}/${{ steps.secrets.outputs.img }}:latest
       
