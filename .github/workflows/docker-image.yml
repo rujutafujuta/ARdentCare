@@ -42,7 +42,12 @@ jobs:
         
 
     - name: Build and push the Docker image
+      env:
+        region: ${{ steps.secrets.outputs.region }}
+        project_id: ${{ steps.secrets.outputs.project_id }}
+        repository: ${{ steps.secrets.outputs.repository }}
+        img: ${{ steps.secrets.outputs.img }}
       run: |
-        docker build -t ${{ steps.secrets.outputs.region }}-docker.pkg.dev/${{ steps.secrets.outputs.project_id }}/${{ steps.secrets.outputs.repository }}/${{ steps.secrets.outputs.img }}:latest .
-        docker push ${{ steps.secrets.outputs.region }}-docker.pkg.dev/${{ steps.secrets.outputs.project_id }}/${{ steps.secrets.outputs.repository }}/${{ steps.secrets.outputs.img }}:latest
+        docker build -t region-docker.pkg.dev/project_id/repository/img:latest .
+        docker push region-docker.pkg.dev/project_id/repository/img:latest
       
