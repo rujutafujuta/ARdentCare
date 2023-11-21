@@ -53,6 +53,6 @@ jobs:
         img: ${{ steps.secrets.outputs.img }}
       run: |
         gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us-west4-docker.pkg.dev
-        docker build -t us-west4-docker.pkg.dev/danta-vishram/danta-vishram-repo:latest .
-        docker push us-west4-docker.pkg.dev/danta-vishram/danta-vishram-repo:latest
+        docker build -t us-west4-docker.pkg.dev/danta-vishram/danta-vishram-repo/dv-image:latest .
+        docker push us-west4-docker.pkg.dev/danta-vishram/danta-vishram-repo/dv-image
       
