@@ -31,4 +31,4 @@ FROM basic-copy-files AS basic-version
 
 # Basic run
 FROM basic-version AS roop
-ENTRYPOINT ["python", "run.py"]
+ENTRYPOINT ["bash"]
